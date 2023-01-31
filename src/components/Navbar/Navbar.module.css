@@ -1,0 +1,11 @@
+.nav {
+    grid-area: n;
+    background: burlywood;
+    min-width: 10vw;
+}
+.item{
+    border: 2px outset blue;
+}
+.active{
+    color: gold;
+}

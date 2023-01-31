@@ -1,0 +1,12 @@
+.content {
+    position: relative;
+    grid-area: c;
+    background: cornsilk;
+}
+.content .imageSamurai{
+    width: 80vw;
+}
+.content .imageSamurai img{
+    width: 50%;
+    height: 200px;
+}
