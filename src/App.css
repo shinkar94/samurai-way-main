@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+.app-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-template-areas:
+  "h h"
+  "n c";
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+    grid-area: h;
+    background: bisque;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header img {
+    width: 60px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.nav {
+    grid-area: n;
+    background: burlywood;
+    min-width: 10vw;
 }
 
-.App-link {
-  color: #61dafb;
+.content {
+    position: relative;
+    grid-area: c;
+    background: cornsilk;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content .imageSamurai{
+    width: 80vw;
+}
+.content .imageSamurai img{
+    width: 50%;
+    height: 200px;
+}
+.FontBlock{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.FontBlock img{
+    width: 100%;
+    height: 100%;
 }
