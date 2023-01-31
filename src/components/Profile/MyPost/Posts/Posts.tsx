@@ -5,7 +5,7 @@ type PostType = {
     message: string
 }
 
-export const Posts = (props:PostType) =>{
+export const Posts: React.FC<PostType> = (props) =>{
     return(
         <div className={mpSt.item}>
             <p>{props.message}</p>
