@@ -1,12 +1,13 @@
 import React from "react";
 import pSt from "./Profile.module.css"
 import {MyPost} from "./MyPost/MyPost";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 export const Profile = () =>{
     return(
-        <div className={pSt.content}>
+        <div>
             <div className={pSt.imageSamurai}></div>
-            <div>ava + decription</div>
+            <ProfileInfo />
             <MyPost />
         </div>
     )

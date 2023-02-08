@@ -4,7 +4,12 @@
     min-width: 10vw;
 }
 .item{
+    color: black;
     border: 2px outset blue;
+}
+.item a{
+    text-decoration: none;
+    /*color: black;*/
 }
 .active{
     color: gold;
