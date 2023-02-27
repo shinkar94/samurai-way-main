@@ -1,3 +1,6 @@
+import {rerenderEntarent} from "../index";
+
+
 export type StateType ={
     DialogsPage: DialogsPageType
     PostPage: PostPageType
@@ -49,5 +52,17 @@ export const state:StateType = {
             {id: 4, message: "hi Roman", likeCount: 22, dislikeCount: 1}
         ]
     }
+}
+
+
+export const addPost = (postMess?:string) =>{
+    let newPost = {
+        id:5,
+        message: postMess ? postMess : '',
+        likeCount: 1,
+        dislikeCount: 1
+    };
+    state.PostPage.postsData.push(newPost);
+    rerenderEntarent()
 }
 

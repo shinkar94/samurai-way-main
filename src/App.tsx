@@ -5,11 +5,12 @@ import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import appSt from "./App.module.css"
 import {BrowserRouter, Route} from "react-router-dom";
-import {StateType} from "./redux/state";
+import {addPost, StateType} from "./redux/state";
 
 
 type AppType = {
     state: StateType
+    addPost: (postMess?: string)=>void
 }
 
 const App:React.FC<AppType> = ({state}) => {
@@ -20,7 +21,7 @@ const App:React.FC<AppType> = ({state}) => {
                 <Navbar/>
                 <div className={appSt.content}>
                     <Route path='/dialogs' render={()=><Dialogs DialogsPage={state.DialogsPage}/>}/>
-                    <Route path='/profile' render={()=><Profile PostPage={state.PostPage}/>}/>
+                    <Route path='/profile' render={()=><Profile PostPage={state.PostPage} addPost={addPost}/>}/>
                 </div>
             </div>
         </BrowserRouter>
