@@ -1,17 +1,18 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import mpSt from "./MyPost.module.css";
 import {Posts} from "./Posts/Posts";
-import {PostsType} from "../../../redux/state";
+import {PostPageType} from "../../../redux/state";
 
 type MyPostType = {
-    postsData: PostsType[]
-    addPost:(postMess?: string)=>void
+    PostPage: PostPageType
+    addPost:()=>void
+    updatePostChange:(newtext: string)=>void
 }
 
 export const MyPost:React.FC<MyPostType> = (props) => {
-    const {postsData, addPost} = props
+    const {PostPage, addPost, updatePostChange} = props
 
-    let postsElements = postsData.map(el => {
+    let postsElements = PostPage.postsData.map(el => {
         return (
             <Posts key={el.id}
                    id={el.id}
@@ -21,11 +22,12 @@ export const MyPost:React.FC<MyPostType> = (props) => {
         )
     })
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
-
     const addPostHandler = () =>{
-        let text = newPostElement.current?.value
-        addPost(text)
+        addPost()
+    }
+
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>)=>{
+        updatePostChange(e.currentTarget.value)
     }
 
 
@@ -33,7 +35,7 @@ export const MyPost:React.FC<MyPostType> = (props) => {
         <div>
             MyPost
             <div>
-                <textarea ref={newPostElement}></textarea>
+                <textarea onChange={onChangeHandler} value={PostPage.newPostText}/>
                 <button onClick={addPostHandler}>Add</button>
             </div>
             <div className={mpSt.posts}>

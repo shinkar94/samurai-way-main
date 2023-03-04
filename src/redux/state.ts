@@ -11,6 +11,7 @@ export type DialogsPageType ={
 }
 export type PostPageType = {
     postsData: PostsType[]
+    newPostText: string
 }
 export type DialogsType = {
     id: number
@@ -27,6 +28,9 @@ export type PostsType = {
     dislikeCount: number
 }
 
+let renderIntarentTrue = () => {
+    console.log("hihihi")
+}
 
 export const state:StateType = {
     DialogsPage:{
@@ -50,19 +54,31 @@ export const state:StateType = {
             {id: 2, message: "nooo", likeCount: 12, dislikeCount: 1},
             {id: 3, message: "!!!yes", likeCount: 10, dislikeCount: 1},
             {id: 4, message: "hi Roman", likeCount: 22, dislikeCount: 1}
-        ]
+        ],
+        newPostText: '',
     }
 }
 
 
-export const addPost = (postMess?:string) =>{
+export const addPost = () =>{
     let newPost = {
         id:5,
-        message: postMess ? postMess : '',
+        message: state.PostPage.newPostText,
         likeCount: 1,
         dislikeCount: 1
     };
     state.PostPage.postsData.push(newPost);
+    state.PostPage.newPostText = '';
     rerenderEntarent()
+}
+export const updatePostChange = (newtext: string) =>{
+    state.PostPage.newPostText = newtext;
+    rerenderEntarent();
+}
+
+
+
+export const subsribe = (observer:()=>void)=>{
+    renderIntarentTrue = observer
 }
 
