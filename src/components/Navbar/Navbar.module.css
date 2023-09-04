@@ -1,16 +1,43 @@
 .nav {
-    grid-area: n;
-    background: burlywood;
-    min-width: 10vw;
+    grid-area: nav;
+    padding: 10px;
+    margin-left: 70%;
+    height: 100vh;
 }
-.item{
-    color: black;
-    border: 2px outset blue;
+
+.nav div {
+    margin-bottom: 3px;
+
 }
-.item a{
+
+.nav a {
     text-decoration: none;
-    /*color: black;*/
+    color: var(--text-color);
+
+    /*margin-bottom: 30px;*/
 }
-.active{
-    color: gold;
+
+.navLink {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.navLink div {
+    display: inline-block;
+    padding-top:5px;
+}
+
+.navLink svg {
+    margin-right: 10px;
+
+}
+
+.navLink a {
+
+}
+
+.navLink:hover {
+    background-color: #e8e4ec;
 }

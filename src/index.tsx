@@ -1,19 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import {state, subsribe} from "./redux/state";
-import {addPost,updatePostChange} from "./redux/state";
+import {BrowserRouter} from 'react-router-dom';
+import  {AppContainer} from './App';
+import {store} from './bll/redux-store';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 
 
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>, document.getElementById('root') as HTMLElement
+)
 
-export let rerenderEntarent = () =>{
-    ReactDOM.render(
-        <App state={state} addPost={addPost} updatePostChange={updatePostChange}/>,
-        document.getElementById('root')
-    );
-}
 
-rerenderEntarent()
+// reportWebVitals()
 
-subsribe(rerenderEntarent)
+

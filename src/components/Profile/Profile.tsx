@@ -1,25 +1,21 @@
-import React from "react";
-import pSt from "./Profile.module.css"
-import {MyPost} from "./MyPost/MyPost";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {PostPageType} from "../../redux/state";
+import React, {FC} from 'react';
+import classes from './profile.module.css';
+import {UserProfileType} from '../../bll/profile-reducer';
+import {ProfileInfo} from './ProfileInfo/ProfileInfo';
+import {MyPostsContainer} from './my-posts/my-posts-container';
 
-type ProfileType = {
-    PostPage: PostPageType
-    addPost:()=>void
-    updatePostChange: (newtext: string)=>void
-}
-
-export const Profile:React.FC<ProfileType> = (props) =>{
-    const {PostPage,addPost,updatePostChange} = props
-    return(
-        <div>
-            <div className={pSt.imageSamurai}></div>
-            <ProfileInfo />
-            <MyPost PostPage={PostPage}
-                    addPost={addPost}
-                    updatePostChange={updatePostChange}
-            />
+export const Profile:FC<Props> = ({profile,isOwner,savePhoto}) => {
+    return (
+        <div className={classes.profileContent}>
+            <ProfileInfo profile={profile} isOwner={isOwner} savePhoto={savePhoto}/>
+            <MyPostsContainer/>
         </div>
-    )
+    );
+};
+
+//types
+type Props = {
+    profile:UserProfileType
+    isOwner:boolean
+    savePhoto:(file:File)=>void
 }

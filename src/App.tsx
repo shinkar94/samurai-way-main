@@ -1,36 +1,57 @@
-import React from 'react';
-import {Header} from "./components/Header/Header";
-import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import appSt from "./App.module.css"
-import {BrowserRouter, Route} from "react-router-dom";
-import {addPost, StateType} from "./redux/state";
+import React, {Component, ComponentType} from 'react';
+import './App.css';
+import {Navbar} from './components/navbar/navbar';
+import {withRouter} from 'react-router-dom';
+import HeaderContainer from './components/header/header-container';
+import LoginContainer from './components/login/login-container';
+import {connect} from 'react-redux';
+import {AppStateType} from './bll/redux-store';
+import {compose} from 'redux';
+import {initializeApp} from './bll/app-reducer';
+import {Preloader} from './components/common/preloader/preloader';
+import {Routing} from './components/common/routing/routing';
+import {News} from './components/news/news';
 
+class App extends Component<PropsType> {
+    componentDidMount() {
+        this.props.initialize();
+    }
 
-type AppType = {
-    state: StateType
-    addPost: ()=>void
-    updatePostChange: (newtext: string)=>void
-}
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+        return (
+            <div className="App">
+                    <HeaderContainer/>
+                    {this.props.isLoggedIn && <Navbar/>}
+                    <div className="app-wrapper-content">
+                        {this.props.isLoggedIn ? <Routing/> : <LoginContainer/>}
 
-const App:React.FC<AppType> = (props) => {
-    const {state, addPost, updatePostChange} = props
-    return (
-        <BrowserRouter>
-            <div className={appSt.appWrapper}>
-                <Header/>
-                <Navbar/>
-                <div className={appSt.content}>
-                    <Route path='/dialogs' render={()=><Dialogs DialogsPage={state.DialogsPage}/>}/>
-                    <Route path='/profile' render={()=><Profile PostPage={state.PostPage}
-                                                                addPost={addPost}
-                                                                updatePostChange={updatePostChange}/>}
-                    />
-                </div>
+                    </div>
+                <News/>
             </div>
-        </BrowserRouter>
-    );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    initialized: state.app.initialized,
+    isLoggedIn: state.auth.isLoggedIn
+})
+
+export const AppContainer = compose<ComponentType>(
+    withRouter,
+    connect(mapStateToProps, {initialize: initializeApp}))(App)
+
+//types
+type MapStateToPropsType = {
+    initialized: boolean
+    isLoggedIn: boolean
+}
+
+type MapDispatchToPropsType = {
+    initialize: () => void
+}
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType

@@ -1,31 +1,34 @@
-import dlSt from './Dialogs.module.css'
-
-import {MessageItem} from "./MessageItem/MessageItem";
-import {DialogsItem} from "./DialogItem/DialogsItem";
-import {DialogsPageType} from "../../redux/state";
-import React from "react";
-
-type DialogsType = {
-    DialogsPage: DialogsPageType
-}
-
-export const Dialogs:React.FC<DialogsType> = ({DialogsPage}) =>{
+import React, {ChangeEvent, FC} from 'react';
+import classes from './dialogs.module.css';
+import {DialogItem} from './dialog-item/dialog-item';
+import {Message} from './message/message';
+import {DialogsContainerType} from './dialogs-container';
 
 
-    let dialogsElements = DialogsPage.dialogsData.map(el =><DialogsItem key={el.id} id={el.id} name={el.name} />)
-    let messageElements = DialogsPage.messagesData.map(el =><MessageItem id={el.id} message={el.message} />)
+export const Dialogs:FC<DialogsContainerType> = ({dialogsPage,addMessage,updateMessageText}) => {
+    const mappedDialogs = dialogsPage.dialogsData.map((d) => <DialogItem name={d.name} id={d.id}
+                                                                                 img={d.img}/>)
+    const mappedMessages = dialogsPage.messageData.map((m) => <Message message={m.message}/>)
 
-    return(
-        <div className={dlSt.dialogs}>
-            <div className={dlSt.dialogs_title}><h3>Dialogs</h3></div>
-            <div className={dlSt.dialogs_content}>
-                <div className={dlSt.dialogs_user_panel}>
-                    {dialogsElements}
-                </div>
-                <div className={dlSt.messages}>
-                    {messageElements}
-                </div>
+    const sendMessageHandler = () => {
+        addMessage();
+    }
+
+    const updateMessageTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        updateMessageText(e.currentTarget.value)
+    }
+    return (
+        <div className={classes.dialogs}>
+            <div className={classes.dialog}>
+                {mappedDialogs}
             </div>
+            <div className={classes.messages}>
+                {mappedMessages}
+                <input type="text" value={dialogsPage.textMessage} onChange={updateMessageTextHandler}/>
+                <button onClick={sendMessageHandler}>+</button>
+            </div>
+
         </div>
-    )
-}
+    );
+};
+
